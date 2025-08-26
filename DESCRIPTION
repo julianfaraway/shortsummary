@@ -1,6 +1,6 @@
 Package: farawayutils
 Type: Package
-Title: Cosmetic changes to R summaries and graphics
+Title: Removes less useful info from summaries of lm and glm objects in R
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -9,8 +9,7 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: Changes the lm summary output.
-    Some other cosmetic changes.
+Description: I don't want to see info about the call, the residuals, extra empty lines and other less immediately relevant stats
 License: CC0
 Encoding: UTF-8
 LazyData: true
