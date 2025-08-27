@@ -1,4 +1,4 @@
-Package: farawayutils
+Package: shortsummary
 Type: Package
 Title: Removes less useful info from summaries of lm and glm objects in R
 Version: 0.1.0
@@ -9,8 +9,7 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: I don't want to see info about the call, the residuals, extra empty lines and other less immediately relevant stats
+Description: Removes the call, the residuals, extra empty lines and other less immediately relevant stats.
 License: CC0
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.3.2
