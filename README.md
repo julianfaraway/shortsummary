@@ -27,24 +27,27 @@ F-statistic: 89.6 on 1 and 48 DF,  p-value: 1.49e-12
 It's much longer than necessary. This is a waste of paper if you print it out
 and makes on screen output longer which is a nuisance if you want to compare
 it to other output since it is less likely to fit on the
-same screen. Perhaps you are student with a page limit on your assignment.
+same screen. Also, perhaps you have a page limit.
 
 - We don't need to see the call again. We can see the calling function already
 as would be typical if using Rmarkdown or Jupyter notebooks etc. Seeing
 the call function is only useful if you can only see the output.
 
 - I'm usually not interested in the residuals information. Some guy back
-in the 1980s thought it was a good idea and it's been stuck there ever since. If
+in the olden dayes of `S` thought it was a good idea and 
+it's been stuck there ever since. If
 I want it, I can do `fivenum(residuals(lmod))` or probably just plot the residuals.
 
 - I can see it is the coefficients so I don't need to see `Coefficients:`
 
-- An extra empty line at the beginning and end
+- There's an extra empty line at the beginning and end. If we want extra space,
+we can rely on Rmarkdown, LaTeX, Jupyter etc. to provide this. We don't want
+it built into the output.
 
-Let's fix that:
+Let's fix that with this R package:
 
 ```
-> library(farawayutils)
+> library(shortsummary)
 > lmod = lm(dist ~ speed, cars)
 > summary(lmod)
             Estimate Std. Error t value Pr(>|t|)
@@ -58,7 +61,7 @@ F-statistic: 89.6 on 1 and 48 DF,  p-value: <1e-04
 
 This is a mere 7 lines of output compared to the original 17.
 
-# WARNING
+# Warning
 
 This package replaces the `print.summary.lm()` and `print.summary.glm()` functions
 in the `stats` package which is loaded every time you start `R`. Usually
@@ -70,11 +73,11 @@ are not changed at all. When you do `lmodsum <- summary(lmod)`, various model
 components are computed and found in `lmodsum`. If you don't save the output, it
 is printed using `print.summary.lm()` - this is the function I have modified.
 
-# ALTERNATIVES
+# Alternatives
 
 One can just write your own version of `print.summary.lm()`. I did this in
-my `faraway` R package which I used in the second edition of my two
-red R books. This produces:
+my [faraway](https://github.com/julianfaraway/faraway) R package which 
+I used in the second edition of my two red R books. This produces:
 
 ```
 > library(faraway)
@@ -93,13 +96,18 @@ in the `display()` function of the `arm` package.
 
 The drawback in this approach arises in teaching R/Statistics
 to new users. Installing a package and remembering to load it
-will be challenging to new users. Explaining why there
+is challenging to many new users. Explaining why there
 are two versions of the linear model output will be another issue.
-You can expect to get lots of emails about this. One can
+You can expect to get lots of questions about this. One can
 avoid this additional complexity by just using the base stats
 function without additional packages.
 
-# INSTALLATION
+The purpose of this package is to produce documentation with
+shorter linear model summaries while only using base `R` commands.
+One can quietly load the package without explaining or add a footnote
+for the curious.
+
+# Installation
 
 Assuming you have already installed the  `devtools` R package, 
 install this package with:
@@ -107,3 +115,25 @@ install this package with:
 ```
 devtools::install_github("julianfaraway/farawayutils")
 ```
+
+# History
+
+(Warning: I may not recall this correctly)
+
+In earlier versions of 1980s S, you didn't get a fancy summary.
+You got some of the parts and had to do your own assembly. You
+had to use the `lsfit()` function which still exists!
+Moving into the 1990s, there
+were some big developments in statistics modelling described
+in [Statistical Models in S](https://doi.org/10.1201/9780203738535). A lot of
+modelling functionality and syntax we use today was introduced.
+The `summary()`  output was similar but no p-values or F-statistics. You got
+the correlation of coefficients by default.
+
+When `R` supplanted `S+`, the summary model output changed somewhat. It was at this time, someone
+had the bad idea of adding significance stars to the default summary
+but at least there's an option to turn them off. The correlation of coefficients
+was made optional. In the `glm()` summary, the residual display is turned off
+by default but for some unknown reason they were kept for the `lm()` summary. This
+was likely the last chance to make any substantive change to the `summary()`
+output as there's (understandably) a very strong bias against making changes to commonly-used output.
