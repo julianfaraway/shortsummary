@@ -59,7 +59,70 @@ Multiple R-squared:  0.651,	Adjusted R-squared:  0.644
 F-statistic: 89.6 on 1 and 48 DF,  p-value: <1e-04
 ```
 
-This is a mere 7 lines of output compared to the original 17.
+We've saved 10 lines of output. Now think of how many bazillions
+of linear model summaries have been produced using R - think
+of the savings!
+
+Now look at a GLM:
+
+```
+> gmod = glm(dist ~ speed, cars, family=gaussian)
+> summary(gmod)
+
+Call:
+glm(formula = dist ~ speed, family = gaussian, data = cars)
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  -17.579      6.758   -2.60    0.012
+speed          3.932      0.416    9.46  1.5e-12
+
+(Dispersion parameter for gaussian family taken to be 236.53)
+
+    Null deviance: 32539  on 49  degrees of freedom
+Residual deviance: 11354  on 48  degrees of freedom
+AIC: 419.2
+
+Number of Fisher Scoring iterations: 2
+
+```
+
+- As above, we could do without the `Call` and the `Coefficients`
+
+- The residuals stats are not displayed (although there is an option for this).
+
+- I am going to keep the dispersion paramater and deviances.
+
+- I don't need to see the AIC now. There's nothing I can do with this
+number by itself. It's only useful for comparing to other models and
+then I would use the `AIC()` function.
+
+- I don't care how many Fisher Scoring iterations were required. It's
+a technical detail of the fitting algorithm. I'm glad someone cares about
+it but I am happy to trust them on that. If
+there's a convergence problem, we'll get a warning about that.
+
+- Again, we have extra blank lines at the beginning and end that
+we could do without. There are two interior blank lines but let's
+keep them.
+
+Here's the shorter summary:
+
+```
+> library(shortsummary)
+> gmod = glm(dist ~ speed, cars, family=gaussian)
+> summary(gmod)
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  -17.579      6.758   -2.60    0.012
+speed          3.932      0.416    9.46  1.5e-12
+
+(Dispersion parameter for gaussian family taken to be 236.53)
+
+    Null deviance: 32539  on 49  degrees of freedom
+Residual deviance: 11354  on 48  degrees of freedom
+```
+
+That's 9 lines shorter.
 
 # Warning
 
@@ -76,13 +139,14 @@ is printed using `print.summary.lm()` - this is the function I have modified.
 Also, it would appear that one only has the opportunity replace these functions
 at the beginning of the session. Once you have already used the built-in
 version of the function, you can no longer change it and loading my package
-will have no effect.
+will have no effect. For example, if you execute the code above in the order
+it appears, it won't produce the expected shorter summaries.
 
 # Alternatives
 
 One can just write your own version of `print.summary.lm()`. I did this in
 my [faraway](https://github.com/julianfaraway/faraway) R package which 
-I used in the second edition of my two red R books. This would be the officially
+I used in the second editions of my two red R books. This would be the officially
 recommended way to deal with this issue.
 This produces:
 
@@ -107,7 +171,8 @@ is challenging to many new users. Explaining why there
 are two versions of the linear model output will be another issue.
 You can expect to get lots of questions about this. One can
 avoid this additional complexity by just using the base stats
-function without additional packages.
+function without additional packages. I like packages
+but they cause problems for beginners.
 
 The purpose of this package is to produce documentation with
 shorter linear model summaries while only using base `R` commands.
@@ -122,6 +187,9 @@ install this package with:
 ```
 devtools::install_github("julianfaraway/shortsummary")
 ```
+
+This package will never be on CRAN because it does a *very bad thing*
+as explained in the Warning section above.
 
 # History
 
