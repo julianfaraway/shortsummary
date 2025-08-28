@@ -1,6 +1,6 @@
 # Make lm() and glm() summaries shorter
 
-Consider the standard printed summary of an lm() fit in R:
+Consider the standard printed summary of an `lm()` fit in R:
 
 ```
 > lmod = lm(dist ~ speed, cars)
@@ -33,10 +33,10 @@ same screen. Also, perhaps you have a page limit.
 as would be typical if using Rmarkdown or Jupyter notebooks etc. Seeing
 the call function is only useful if you can only see the output.
 
-- I'm usually not interested in the residuals information. Some guy back
-in the olden dayes of `S` thought it was a good idea and 
+- I'm usually not immediately interested in the residuals information. Some guy back
+in the olden days of `S` thought it was a good idea and 
 it's been stuck there ever since. If
-I want it, I can do `fivenum(residuals(lmod))` or probably just plot the residuals.
+I want it, I can do `fivenum(residuals(lmod))` or better, just plot the residuals.
 
 - I can see it is the coefficients so I don't need to see `Coefficients:`
 
@@ -73,11 +73,18 @@ are not changed at all. When you do `lmodsum <- summary(lmod)`, various model
 components are computed and found in `lmodsum`. If you don't save the output, it
 is printed using `print.summary.lm()` - this is the function I have modified.
 
+Also, it would appear that one only has the opportunity replace these functions
+at the beginning of the session. Once you have already used the built-in
+version of the function, you can no longer change it and loading my package
+will have no effect.
+
 # Alternatives
 
 One can just write your own version of `print.summary.lm()`. I did this in
 my [faraway](https://github.com/julianfaraway/faraway) R package which 
-I used in the second edition of my two red R books. This produces:
+I used in the second edition of my two red R books. This would be the officially
+recommended way to deal with this issue.
+This produces:
 
 ```
 > library(faraway)
@@ -92,7 +99,7 @@ n = 50, p = 2, Residual SE = 15.380, R-Squared = 0.65
 Now I am down to 5 lines. One usually does not need the F-statistic
 and the Adjusted R-squared is surplus to requirements. Seeing
 `n` and `p` is helpful. You can see something similar
-in the `display()` function of the `arm` package.
+in the `display()` function of the [arm](https://CRAN.R-project.org/package=arm) package.
 
 The drawback in this approach arises in teaching R/Statistics
 to new users. Installing a package and remembering to load it
@@ -113,7 +120,7 @@ Assuming you have already installed the  `devtools` R package,
 install this package with:
 
 ```
-devtools::install_github("julianfaraway/farawayutils")
+devtools::install_github("julianfaraway/shortsummary")
 ```
 
 # History
@@ -122,7 +129,7 @@ devtools::install_github("julianfaraway/farawayutils")
 
 In earlier versions of 1980s S, you didn't get a fancy summary.
 You got some of the parts and had to do your own assembly. You
-had to use the `lsfit()` function which still exists!
+had to use the `lsfit()` function, which still exists.
 Moving into the 1990s, there
 were some big developments in statistics modelling described
 in [Statistical Models in S](https://doi.org/10.1201/9780203738535). A lot of
@@ -132,8 +139,9 @@ the correlation of coefficients by default.
 
 When `R` supplanted `S+`, the summary model output changed somewhat. It was at this time, someone
 had the bad idea of adding significance stars to the default summary
-but at least there's an option to turn them off. The correlation of coefficients
+but at least there's an option to turn them off. The display of the correlation of coefficients
 was made optional. In the `glm()` summary, the residual display is turned off
-by default but for some unknown reason they were kept for the `lm()` summary. This
+by default but unfortunately, they were kept for the `lm()` summary. This
 was likely the last chance to make any substantive change to the `summary()`
-output as there's (understandably) a very strong bias against making changes to commonly-used output.
+output as there's (understandably) a very strong bias 
+against making changes to commonly-used output.
