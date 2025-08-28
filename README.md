@@ -183,7 +183,7 @@ function without additional packages. I like packages
 but they cause problems for beginners.
 
 The purpose of this package is to produce documentation with
-shorter linear model summaries while only using base `R` commands.
+shorter linear model summaries while apparently only using base `R` commands.
 One can quietly load the package without explaining or add a footnote
 for the curious.
 
