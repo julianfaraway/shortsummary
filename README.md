@@ -91,11 +91,19 @@ Number of Fisher Scoring iterations: 2
 
 - The residuals stats are not displayed (although there is an option for this).
 
-- I am going to keep the dispersion paramater and deviances.
+- I am going to keep the dispersion parameter and deviances. It
+would be more useful to have the square root of the dispersion since
+this would be the residual standard error. When you fit a binomial
+or a Poisson, the dispersion parameter is fixed at one so you don't
+need this line for these two instances. The deviances are not that
+useful directly but you could construct a test statistic using them.
+My preference would be to print something else but we are just shortening
+the output here, not changing it.
 
 - I don't need to see the AIC now. There's nothing I can do with this
 number by itself. It's only useful for comparing to other models and
-then I would use the `AIC()` function.
+then I would use the `AIC()` function or the residual deviances we
+already have.
 
 - I don't care how many Fisher Scoring iterations were required. It's
 a technical detail of the fitting algorithm. I'm glad someone cares about
@@ -144,10 +152,10 @@ it appears, it won't produce the expected shorter summaries.
 
 # Alternatives
 
-One can just write your own version of `print.summary.lm()`. I did this in
+You can just write your own version of `print.summary.lm()`. I did this in
 my [faraway](https://github.com/julianfaraway/faraway) R package which 
-I used in the second editions of my two red R books. This would be the officially
-recommended way to deal with this issue.
+I used in the second editions of my two red R books. Using a wrapper function
+like this is the officially recommended way to deal with this issue.
 This produces:
 
 ```
