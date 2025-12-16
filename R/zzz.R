@@ -9,4 +9,11 @@
   
   lockBinding("print.summary.lm", envir)
   lockBinding("print.summary.glm",envir)
+  
+  if (requireNamespace("lme4", quietly = TRUE)) {
+    envir = asNamespace("lme4")
+    unlockBinding("print.summary.merMod", envir)
+    assign("print.summary.merMod", print.summary.merMod, envir=envir)
+    lockBinding("print.summary.merMod", envir)
+  }
 }

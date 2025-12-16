@@ -2,6 +2,8 @@
 
 export(print.summary.glm)
 export(print.summary.lm)
+export(print.summary.merMod)
+importFrom(stats,cov2cor)
 importFrom(stats,naprint)
 importFrom(stats,pf)
 importFrom(stats,printCoefmat)

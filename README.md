@@ -1,4 +1,4 @@
-# Make lm() and glm() summaries shorter
+# Make lm(), glm() and other model summaries shorter
 
 Consider the standard printed summary of an `lm()` fit in R:
 
@@ -221,3 +221,70 @@ by default but unfortunately, they were kept for the `lm()` summary. This
 was likely the last chance to make any substantive change to the `summary()`
 output as there's (understandably) a very strong bias 
 against making changes to commonly-used output.
+
+# LME4
+
+Consider the output from an `lme4` fit:
+
+```
+> library(lme4)
+> fm1 <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+> summary(fm1)
+Linear mixed model fit by REML ['lmerMod']
+Formula: Reaction ~ Days + (Days | Subject)
+   Data: sleepstudy
+
+REML criterion at convergence: 1743.6
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.954 -0.463  0.023  0.463  5.179 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr
+ Subject  (Intercept) 612.1    24.74        
+          Days         35.1     5.92    0.07
+ Residual             654.9    25.59        
+Number of obs: 180, groups:  Subject, 18
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   251.41       6.82   36.84
+Days           10.47       1.55    6.77
+
+Correlation of Fixed Effects:
+     (Intr)
+Days -0.138
+```
+
+That's rather long. We don't need most of this:
+
+- We already know it's a linear mixed model fit and REML is the default
+- We can see the formula in the command
+- We know which dataset
+- We can get the REML criterion from the 2*log-likelihood if we really wanted it
+- We'll plot the residuals later - we don't want to look at them now
+- We've probably checked on the size of the dataset and the number of groups earlier
+- We don't usually care too much about the correlation of the fixed effects
+
+Now restart R and do it 
+
+```
+> library(shortsummary)
+> library(lme4)
+> fm1 <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+> summary(fm1)
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr
+ Subject  (Intercept) 612.1    24.74        
+          Days         35.1     5.92    0.07
+ Residual             654.9    25.59        
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   251.41       6.82   36.84
+Days           10.47       1.55    6.77
+```
+
+That's all we really wanted using 15 fewer lines.
+
