@@ -1,5 +1,12 @@
 # Make lm(), glm() and other model summaries shorter
 
+**Use Case**: We want model summaries without unnecessary information. We
+want to use the standard function names without creating functions with different
+names. The reason is that we want to produce output using Rmarkdown or Quarto that
+is more compact without exposing the viewer to the complication of an additional
+package with different functions. If the viewer runs our commands, they will get
+a superset of our printed output. 
+
 Consider the standard printed summary of an `lm()` fit in R:
 
 ```
@@ -156,7 +163,7 @@ You can just write your own version of `print.summary.lm()`. I did this in
 my [faraway](https://github.com/julianfaraway/faraway) R package which 
 I used in the second editions of my two red R books. Using a wrapper function
 like this is the officially recommended way to deal with this issue.
-This produces:
+My `sumary()` function produces:
 
 ```
 > library(faraway)
@@ -171,21 +178,40 @@ n = 50, p = 2, Residual SE = 15.380, R-Squared = 0.65
 Now I am down to 5 lines. One usually does not need the F-statistic
 and the Adjusted R-squared is surplus to requirements. Seeing
 `n` and `p` is helpful. You can see something similar
-in the `display()` function of the [arm](https://CRAN.R-project.org/package=arm) package.
+in the `display()` function of the 
+[arm](https://CRAN.R-project.org/package=arm) package.
 
-The drawback in this approach arises in teaching R/Statistics
+# Justification
+
+The drawback in the alternative function approach arises in teaching R/Statistics
 to new users. Installing a package and remembering to load it
 is challenging to many new users. Explaining why there
-are two versions of the linear model output will be another issue.
+are two versions of the linear model output will be another issue if
+you make changes like I did in `sumary()` above.
 You can expect to get lots of questions about this. One can
-avoid this additional complexity by just using the base stats
-function without additional packages. I like packages
-but they cause problems for beginners.
+avoid this additional complexity by apparently using the base stats
+functions without additional packages. 
 
 The purpose of this package is to produce documentation with
-shorter linear model summaries while apparently only using base `R` commands.
-One can quietly load the package without explaining or add a footnote
-for the curious.
+shorter model summaries while apparently only using base `R` or common
+package commands. Our scheme is to load the `shortsummary` package hidden in a chunk 
+that is not echoed. You can explain if you choose.
+
+It's apparent that other textbook and website users have also silently 
+shortened their output. For a textbook, you can edit the tex file to remove
+excess output but this is cumbersome when you need to update. For websites,
+commands with excess outputs can be split into two chunks. 
+
+- First chunk shows the simple version of the command that produces the 
+excess output but does not evaluate - set the `eval` tag to false.
+
+- Second chunk has a more complex version of the command that has
+shorter output. This is not
+not shown by setting the `echo` tag to false but the output is shown.
+
+The user sees a simple command with shorter output. This shields the
+novice user from unnecessary complexity while maintaining compact output.
+The full truth can be revealed later.
 
 # Installation
 
@@ -287,4 +313,9 @@ Days           10.47       1.55    6.77
 ```
 
 That's all we really wanted using 15 fewer lines.
+
+# Other packages
+
+- removed the call and sample size info from the printing of a `summary.coxph` object from the `survival` package
+- shorter output for the `hurdle` and `zeroinfl` objects and summaries from the `pscl` package
 

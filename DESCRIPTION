@@ -1,7 +1,7 @@
 Package: shortsummary
 Type: Package
 Title: Removes less useful info from summaries of lm, glm and other objects in R
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
     person(
       "Julian", "Faraway",
@@ -10,7 +10,8 @@ Authors@R: c(
     )
   )
 Description: Removes the call, the residuals, extra empty lines and other less immediately relevant stats.
-Suggests: lme4
+Imports: methods
+Suggests: lme4, survival, pscl
 License: CC0
 Encoding: UTF-8
 RoxygenNote: 7.3.3

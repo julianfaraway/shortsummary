@@ -7,7 +7,7 @@
 \method{print}{summary.merMod}(
   x,
   digits = max(3, getOption("digits") - 3),
-  correlation = NULL,
+  correlation = FALSE,
   symbolic.cor = FALSE,
   signif.stars = getOption("show.signif.stars"),
   ranef.comp = c("Variance", "Std.Dev."),
@@ -23,6 +23,8 @@
 \item{digits}{the number of significant digits to use when printing.}
 
 \item{correlation}{logical. Indicates whether the correlation matrix of the fixed-effects parameters should be printed.}
+
+\item{symbolic.cor}{logical. Should a symbolic encoding of the fixed-effects correlation matrix be printed?}
 
 \item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for each coefficient.}
 

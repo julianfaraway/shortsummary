@@ -95,3 +95,21 @@ print.summary.lm <-
     if(!concise) cat("\n")
     invisible(x)
   }
+#' Replaces default stats version by removing useless call info 
+#'
+#' @param x an object of class "lm", usually, a result of a call to lm().
+#' @param digits the number of significant digits to use when printing.
+#' @param ... further arguments passed to or from other methods.
+#' @return Nothing - prints output only.
+#' @export print.lm
+print.lm <- function (x, digits = max(3L, getOption("digits") - 3L), ...) 
+{
+  if (length(coef(x))) {
+    cat("Coefficients:\n")
+    print.default(format(coef(x), digits = digits), print.gap = 2L, 
+                  quote = FALSE)
+  }
+  else cat("No coefficients\n")
+  invisible(x)
+}
+

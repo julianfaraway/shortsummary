@@ -77,7 +77,7 @@ print.summary.merMod <- function(x, digits = max(3, getOption("digits") - 3),
       corF <- VC@factors$correlation
       if (is.null(corF)) { # can this still happen?
         message("\nCorrelation of fixed effects could have been required in summary()")
-        corF <- lme4::cov2cor(VC)
+        corF <- cov2cor(VC)
       }
       p <- ncol(corF)
       if (p > 1) {
@@ -103,6 +103,6 @@ print.summary.merMod <- function(x, digits = max(3, getOption("digits") - 3),
   if(length(x$fitMsgs) && any(nchar(x$fitMsgs) > 0)) {
     cat("fit warnings:\n"); writeLines(x$fitMsgs)
   }
-  .prt.warn(x$optinfo,summary=FALSE)
+  lme4::.prt.warn(x$optinfo,summary=FALSE)
   invisible(x)
 }## print.summary.merMod
