@@ -215,11 +215,11 @@ The full truth can be revealed later.
 
 # Installation
 
-Assuming you have already installed the  `devtools` R package, 
+Assuming you have already installed the  `remotes` R package, 
 install this package with:
 
 ```
-devtools::install_github("julianfaraway/shortsummary")
+remotes::install_github("julianfaraway/shortsummary")
 ```
 
 This package will never be on CRAN because it does a *very bad thing*
@@ -318,4 +318,5 @@ That's all we really wanted using 15 fewer lines.
 
 - removed the call and sample size info from the printing of a `summary.coxph` object from the `survival` package
 - shorter output for the `hurdle` and `zeroinfl` objects and summaries from the `pscl` package
-
+- shorter output for the `polr` and `lda` objects from `MASS`
+- additional shorter version could be developed in a similar way

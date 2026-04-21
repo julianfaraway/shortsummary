@@ -63,9 +63,9 @@ print.polr <- function (x, ...)
     cat("Warning: did not converge as iteration limit reached\n")
   invisible(x)
 }
-#' Replaces default polr version by removing  call info 
+#' Replaces default lda version by removing  call info 
 #'
-#' @param x an object of class "polr", usually, a result of a call to polr().
+#' @param x an object of class "lda", usually, a result of a call to lda().
 #' @param digits the number of significant digits to use when printing.
 #' @param ... further arguments passed to or from other methods.
 #' @return Nothing - prints output only.
