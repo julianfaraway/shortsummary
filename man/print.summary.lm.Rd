@@ -10,6 +10,7 @@
   symbolic.cor = x$symbolic.cor,
   signif.stars = getOption("show.signif.stars"),
   concise = TRUE,
+  show.nobs = FALSE,
   ...
 )
 }
@@ -20,9 +21,11 @@
 
 \item{symbolic.cor}{logical. If TRUE, print the correlations in a symbolic form}
 
-\item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for each coefficient.}
+\item{signif.stars}{logical. If TRUE, 'significance stars' are printed for each coefficient.}
 
 \item{concise}{logical. If TRUE, don't print the call and residuals stats.}
+
+\item{show.nobs}{logical. If TRUE, print n and p at the bottom (similar to faraway::sumary).}
 
 \item{...}{further arguments passed to or from other methods.}
 }

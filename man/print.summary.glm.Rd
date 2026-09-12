@@ -11,6 +11,7 @@
   signif.stars = getOption("show.signif.stars"),
   show.residuals = FALSE,
   concise = TRUE,
+  show.nobs = FALSE,
   ...
 )
 }
@@ -21,11 +22,13 @@
 
 \item{symbolic.cor}{logical. If TRUE, print the correlations in a symbolic form}
 
-\item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for each coefficient.}
+\item{signif.stars}{logical. If TRUE, 'significance stars' are printed for each coefficient.}
 
 \item{show.residuals}{logical. If TRUE then a summary of the deviance residuals is printed at the head of the output.}
 
 \item{concise}{logical. If TRUE, don't print the call, AIC and number of Fisher scoring iterations.}
+
+\item{show.nobs}{logical. If TRUE, print n (number of observations) at the bottom.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
@@ -34,5 +37,5 @@ Nothing - prints output only.
 }
 \description{
 Replaces default stats version by removing call info, AIC and Fisher scoring info.
-Also removes "Coefficients:" line and other empty lines
+Also removes "Coefficients:" line and other empty lines.
 }

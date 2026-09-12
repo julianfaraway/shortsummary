@@ -7,7 +7,7 @@
 \method{print}{glm}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
-\item{x}{an object of class "lm", usually, a result of a call to lm().}
+\item{x}{an object of class "glm", usually, a result of a call to glm().}
 
 \item{digits}{the number of significant digits to use when printing.}
 

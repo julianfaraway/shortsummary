@@ -1,30 +1,30 @@
-#' Replaces default polr version by removing  call info 
+#' Replaces default polr version by removing call info
 #'
 #' @param x an object of class "summary.polr", usually, a result of a call to summary().
 #' @param digits the number of significant digits to use when printing.
+#' @param concise logical. If TRUE, don't print AIC.
 #' @param ... further arguments passed to or from other methods.
 #' @return Nothing - prints output only.
 #' @export print.summary.polr
-print.summary.polr <- function (x, digits = x$digits, ...) 
+print.summary.polr <- function (x, digits = x$digits, concise = TRUE, ...)
 {
   coef <- format(round(x$coefficients, digits = digits))
   pc <- x$pc
   if (pc > 0) {
     cat("Coefficients:\n")
-    print(x$coefficients[seq_len(pc), , drop = FALSE], quote = FALSE, 
+    print(x$coefficients[seq_len(pc), , drop = FALSE], quote = FALSE,
           digits = digits, ...)
-  }
-  else {
+  } else {
     cat("No coefficients\n")
   }
   cat("\nIntercepts:\n")
-  print(coef[(pc + 1L):nrow(coef), , drop = FALSE], quote = FALSE, 
+  print(coef[(pc + 1L):nrow(coef), , drop = FALSE], quote = FALSE,
         digits = digits, ...)
-  cat("\nResidual Deviance:", format(x$deviance, nsmall = 2L), 
-      "\n")
-  cat("AIC:", format(x$deviance + 2 * x$edf, nsmall = 2L), 
-      "\n")
-  if (nzchar(mess <- naprint(x$na.action))) 
+  cat("\nResidual Deviance:", format(x$deviance, nsmall = 2L), "\n")
+  if (!concise) {
+    cat("AIC:", format(x$deviance + 2 * x$edf, nsmall = 2L), "\n")
+  }
+  if (nzchar(mess <- naprint(x$na.action)))
     cat("(", mess, ")\n", sep = "")
   if (!is.null(correl <- x$correlation)) {
     cat("\nCorrelation of Coefficients:\n")
@@ -35,42 +35,40 @@ print.summary.polr <- function (x, digits = x$digits, ...)
   }
   invisible(x)
 }
-#' Replaces default polr version by removing  call info 
+
+#' Replaces default polr version by removing call info
 #'
 #' @param x an object of class "polr", usually, a result of a call to polr().
 #' @param digits the number of significant digits to use when printing.
 #' @param ... further arguments passed to or from other methods.
 #' @return Nothing - prints output only.
 #' @export print.polr
-print.polr <- function (x, ...) 
+print.polr <- function (x, ...)
 {
   if (length(coef(x))) {
     cat("Coefficients:\n")
     print(coef(x), ...)
-  }
-  else {
+  } else {
     cat("No coefficients\n")
   }
   cat("\nIntercepts:\n")
   print(x$zeta, ...)
-  cat("\nResidual Deviance:", format(x$deviance, nsmall = 2L), 
-      "\n")
-  cat("AIC:", format(x$deviance + 2 * x$edf, nsmall = 2L), 
-      "\n")
-  if (nzchar(mess <- naprint(x$na.action))) 
+  cat("\nResidual Deviance:", format(x$deviance, nsmall = 2L), "\n")
+  cat("AIC:", format(x$deviance + 2 * x$edf, nsmall = 2L), "\n")
+  if (nzchar(mess <- naprint(x$na.action)))
     cat("(", mess, ")\n", sep = "")
-  if (x$convergence > 0) 
+  if (x$convergence > 0)
     cat("Warning: did not converge as iteration limit reached\n")
   invisible(x)
 }
-#' Replaces default lda version by removing  call info 
+
+#' Replaces default lda version by removing call info
 #'
 #' @param x an object of class "lda", usually, a result of a call to lda().
-#' @param digits the number of significant digits to use when printing.
 #' @param ... further arguments passed to or from other methods.
 #' @return Nothing - prints output only.
-#' @export print.polr
-print.lda <- function (x, ...) 
+#' @export print.lda
+print.lda <- function (x, ...)
 {
   cat("Prior probabilities of groups:\n")
   print(x$prior, ...)
@@ -82,7 +80,7 @@ print.lda <- function (x, ...)
   names(svd) <- dimnames(x$scaling)[[2L]]
   if (length(svd) > 1L) {
     cat("\nProportion of trace:\n")
-    print(round(svd^2/sum(svd^2), 4L), ...)
+    print(round(svd^2 / sum(svd^2), 4L), ...)
   }
   invisible(x)
 }

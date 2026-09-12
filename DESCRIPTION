@@ -1,7 +1,7 @@
 Package: shortsummary
 Type: Package
 Title: Removes less useful info from summaries of lm, glm and other objects in R
-Version: 0.3.0
+Version: 0.5.0
 Authors@R: c(
     person(
       "Julian", "Faraway",
@@ -9,9 +9,14 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: Removes the call, the residuals, extra empty lines and other less immediately relevant stats.
+Description: Removes the call, the residuals, extra empty lines and other less immediately
+    relevant information from model summaries. Supports lm, glm, lme4, nlme, mgcv, survival,
+    pscl, and MASS models. Adds optional show.nobs argument to display n and p. For binomial
+    and Poisson GLMs, suppresses the redundant dispersion parameter line.
+URL: https://github.com/julianfaraway/shortsummary
+BugReports: https://github.com/julianfaraway/shortsummary/issues
 Imports: methods
-Suggests: lme4, survival, pscl
+Suggests: lme4, nlme, mgcv, survival, pscl, MASS
 License: CC0
 Encoding: UTF-8
 RoxygenNote: 7.3.3
