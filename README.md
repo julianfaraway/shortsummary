@@ -28,7 +28,7 @@ is printed using `print.summary.lm()` - this is the function I have modified.
 Also, it would appear that one only has the opportunity replace these functions
 at the beginning of the session. Once you have already used the built-in
 version of the function, you can no longer change it and loading my package
-will have no effect. For example, if you execute the code above in the order
+will have no effect. For example, if you execute the code below in the order
 it appears, it won't produce the expected shorter summaries.
 
 ## Use Case

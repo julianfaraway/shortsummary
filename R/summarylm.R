@@ -28,6 +28,7 @@ print.summary.lm <-
         "Weighted ", "Residuals:\n", sep = "")
     }
     if (rdf > 5L) {
+      if (!concise){
       nam <- c("Min", "1Q", "Median", "3Q", "Max")
       rq <- if (length(dim(resid)) == 2L)
         structure(apply(t(resid), 1L, quantile), dimnames = list(nam,
@@ -36,7 +37,8 @@ print.summary.lm <-
         zz <- zapsmall(quantile(resid), digits + 1L)
         structure(zz, names = nam)
       }
-      if (!concise) print(rq, digits = digits, ...)
+      print(rq, digits = digits, ...)
+      }
     } else if (rdf > 0L) {
       # nothing
     } else {

@@ -90,5 +90,5 @@ print.summary.coxph <- function (x,
     cat("  (Note: the likelihood ratio and score tests", 
         "assume independence of\n     observations within a cluster,", 
         "the Wald and robust score tests do not).\n")
-  invisible()
+  invisible(x)
 }
