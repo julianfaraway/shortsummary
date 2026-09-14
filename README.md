@@ -1,6 +1,39 @@
 # Make lm(), glm() and other model summaries shorter
 
-**Use Case**: We want model summaries without unnecessary information. We
+## Installation
+
+Assuming you have already installed the  `remotes` R package, 
+install this package with:
+
+```
+remotes::install_github("julianfaraway/shortsummary")
+```
+
+This package will never be on CRAN because it does a *very bad thing*
+as explained in the Warning section below. Do not install without 
+understanding this.
+
+## Warning
+
+This package replaces the `print.summary.lm()` and `print.summary.glm()` functions
+in the `stats` package which is loaded every time you start `R`. Usually
+this is a *very bad thing* to do because changing the expected functionality
+of base `R` could have many unpredictable side effects. But in this case, I am
+only changing what is printed in the output. The components of the model
+fit computed by `lm()` or `glm()` and the associated `summary()` functions
+are not changed at all. When you do `lmodsum <- summary(lmod)`, various model
+components are computed and found in `lmodsum`. If you don't save the output, it
+is printed using `print.summary.lm()` - this is the function I have modified.
+
+Also, it would appear that one only has the opportunity replace these functions
+at the beginning of the session. Once you have already used the built-in
+version of the function, you can no longer change it and loading my package
+will have no effect. For example, if you execute the code above in the order
+it appears, it won't produce the expected shorter summaries.
+
+## Use Case
+
+We want model summaries without unnecessary information. We
 want to use the standard function names without creating functions with different
 names. The reason is that we want to produce output using Rmarkdown or Quarto that
 is more compact without exposing the viewer to the complication of an additional
@@ -139,25 +172,8 @@ Residual deviance: 11354  on 48  degrees of freedom
 
 That's 9 lines shorter.
 
-# Warning
 
-This package replaces the `print.summary.lm()` and `print.summary.glm()` functions
-in the `stats` package which is loaded every time you start `R`. Usually
-this is a *very bad thing* to do because changing the expected functionality
-of base `R` could have many unpredictable side effects. But in this case, I am
-only changing what is printed in the output. The components of the model
-fit computed by `lm()` or `glm()` and the associated `summary()` functions
-are not changed at all. When you do `lmodsum <- summary(lmod)`, various model
-components are computed and found in `lmodsum`. If you don't save the output, it
-is printed using `print.summary.lm()` - this is the function I have modified.
-
-Also, it would appear that one only has the opportunity replace these functions
-at the beginning of the session. Once you have already used the built-in
-version of the function, you can no longer change it and loading my package
-will have no effect. For example, if you execute the code above in the order
-it appears, it won't produce the expected shorter summaries.
-
-# Alternatives
+## Alternatives
 
 You can just write your own version of `print.summary.lm()`. I did this in
 my [faraway](https://github.com/julianfaraway/faraway) R package which 
@@ -181,7 +197,7 @@ and the Adjusted R-squared is surplus to requirements. Seeing
 in the `display()` function of the 
 [arm](https://CRAN.R-project.org/package=arm) package.
 
-# Justification
+## Justification
 
 The drawback in the alternative function approach arises in teaching R/Statistics
 to new users. Installing a package and remembering to load it
@@ -213,19 +229,8 @@ The user sees a simple command with shorter output. This shields the
 novice user from unnecessary complexity while maintaining compact output.
 The full truth can be revealed later.
 
-# Installation
 
-Assuming you have already installed the  `remotes` R package, 
-install this package with:
-
-```
-remotes::install_github("julianfaraway/shortsummary")
-```
-
-This package will never be on CRAN because it does a *very bad thing*
-as explained in the Warning section above.
-
-# History
+## History
 
 (Warning: I may not recall this correctly)
 
@@ -319,4 +324,5 @@ That's all we really wanted using 15 fewer lines.
 - removed the call and sample size info from the printing of a `summary.coxph` object from the `survival` package
 - shorter output for the `hurdle` and `zeroinfl` objects and summaries from the `pscl` package
 - shorter output for the `polr` and `lda` objects from `MASS`
-- additional shorter version could be developed in a similar way
+- shorter summary output for `nlme` and `mgcv`
+- additional shorter versions could be developed in a similar way

@@ -16,7 +16,7 @@ Description: Removes the call, the residuals, extra empty lines and other less i
 URL: https://github.com/julianfaraway/shortsummary
 BugReports: https://github.com/julianfaraway/shortsummary/issues
 Imports: methods
-Suggests: lme4, nlme, mgcv, survival, pscl, MASS
+Suggests: lme4, nlme, mgcv, survival, pscl, MASS,
     testthat (>= 3.0.0)
 License: CC0
 Encoding: UTF-8
